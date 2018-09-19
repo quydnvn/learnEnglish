@@ -1,31 +1,65 @@
-# Adonis fullstack application
+## Prerequisites  
+- [nvm](https://github.com/creationix/nvm)  
+- [NodeJS v8.9.0](https://nodejs.org/en/)  
+- [yarn v1.3.2](https://www.npmjs.com/)  
+- [PostgreSQL v9.5](https://www.postgresql.org)  
+- [Redis v3.2](https://redis.io)  
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
+## How to play  
+- Make sure you already installed **nvm** by following the below construction  
+  ```
+  @refer https://github.com/creationix/nvm
+  ```  
+- Get the correct NodeJS version by running  
+  ```
+  nvm use  
+  ```  
+- Don't forget to activate **GraphicsMagic** and all dababases  
+  ```
+  - GraphicsMagic  
+  - PostgreSQL  
+  - Redis  
+  ```  
+- Install all dependencies  
+  ```
+  yarn install  
+  ```
+- Clone .env.example to .env and fill your prefered variables  
+  ```
+  cp .env.example .env  
+  ```
+- Start the server and enjoy your achievement   
+  ```
+  yarn run start
+  ```
 
-1. Bodyparser
-2. Session
-3. Authentication
-4. Web security middleware
-5. CORS
-6. Edge template engine
-7. Lucid ORM
-8. Migrations and seeds
+## List of commands
+- Start main application  
+  ```
+  yarn start  
+  ```
+- Start job worker to crawling webhook's events  
+  ```
+  yarn job  
+  ```
+- Start cronjon worker to schedule broadcasts  
+  ```
+  yarn cron  
+  ```
 
-## Setup
+## Database job
+- Migration  
+  ```
+  ./ace migration:run  
+  ```
+- Seed
+  ```
+  ./ace db:seed  
+  ```
 
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick
-```
-
-or manually clone the repo and then run `npm install`.
-
-
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+## Rules
+- Make sure all branch's names and commits are valid  
+- Use **yarn** to manage dependencies, **not by manual**
+  ```
+  yarn -h  
+  ```
