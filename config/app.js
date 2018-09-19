@@ -15,6 +15,22 @@ module.exports = {
   */
   appKey: Env.get('APP_KEY'),
 
+  encryption: {
+    /*
+    |--------------------------------------------------------------------------
+    | Encryption algorithm
+    |--------------------------------------------------------------------------
+    |
+    | Encryption algorithm defines the algorithm to be used while encrypting
+    | values. Under the hood adonis makes of node-crypto.
+    |
+    | aes-256-cbc requires 32 characters long string
+    | aes-128-cbc requires 16 characters long string
+    |
+    */
+    algorithm: 'aes-256-cbc'
+  },
+
   http: {
     /*
     |--------------------------------------------------------------------------
