@@ -62,7 +62,12 @@ class Youtube {
       keys.client_id,
       keys.client_secret,
       redirectUri
-    );
+    )
+    // initialize the youtube API library
+    this.youtube = new google.youtube({
+      version: 'v3',
+      auth: this.oAuth2Client
+    })
   }
 
   // Open an http server to accept the oauth callback. In this
@@ -94,6 +99,22 @@ class Youtube {
       });
       destroyer(server);
     });
+  }
+
+  async getPlaylistData (etag) {
+    // Create custom HTTP headers for the request to enable use of eTags
+    const headers = {};
+    if (etag) {
+      headers['If-None-Match'] = etag;
+    }
+    const res = await this.youtube.playlists.list({
+      part: 'id,snippet',
+      id: 'PLIivdWyY5sqIij_cgINUHZDMnGjVx3rxi',
+      headers: headers
+    });
+    console.log('Status code: ' + res.status);
+    console.log(res.data);
+    return res;
   }
 }
 
