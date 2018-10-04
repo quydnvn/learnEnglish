@@ -116,6 +116,47 @@ class Youtube {
     console.log(res.data);
     return res;
   }
+
+  async search() {
+    const res = await this.youtube.search.list({
+      part: 'id,snippet',
+      q: 'Node.js on Google Cloud'
+    });
+    console.log(res.data)
+  }
+
+  async upload (fileName, callback) {
+    const fileSize = fs.statSync(fileName).size;
+    const res = await youtube.videos.insert({
+      part: 'id,snippet,status',
+      notifySubscribers: false,
+      requestBody: {
+        snippet: {
+          title: 'Node.js YouTube Upload Test',
+          description: 'Testing YouTube upload via Google APIs Node.js Client'
+        },
+        status: {
+          privacyStatus: 'private'
+        }
+      },
+      media: {
+        body: fs.createReadStream(fileName)
+      }
+    }, {
+      // Use the `onUploadProgress` event from Axios to track the
+      // number of bytes uploaded to this point.
+      onUploadProgress: evt => {
+        const progress = (evt.bytesRead / fileSize) * 100;
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(`${Math.round(progress)}% complete`);
+      }
+    });
+    console.log('\n\n');
+    console.log(res.data);
+    return res.data;
+  }
+
 }
 
 module.exports = Youtube
