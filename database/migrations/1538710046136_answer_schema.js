@@ -6,7 +6,10 @@ class AnswerSchema extends Schema {
   up () {
     this.create('answers', (table) => {
       table.increments()
-      table.timestamps()
+      table.integer('question_num').notNullable()
+      table.integer('quiz_id').notNullable()
+      table.string('text').notNullable()
+      table.integer('correct').notNullable().defaultTo(0)
     })
   }
 
