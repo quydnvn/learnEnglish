@@ -4,9 +4,10 @@ const Schema = use('Schema')
 
 class CategorySchema extends Schema {
   up () {
-    this.create('categories', (table) => {
+    this.createIfNotExists('categories', (table) => {
       table.increments()
-      table.timestamps()
+      table.string('name', 50).notNullable()
+      table.text('description').notNullable()
     })
   }
 
