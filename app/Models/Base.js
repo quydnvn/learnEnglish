@@ -5,6 +5,7 @@ const _ = use('lodash')
 const metrohash64 = require('metrohash').metrohash64
 
 const Lucid = use('Lucid')
+const StorageService = make('App/Services/Storage')
 
 class Base extends Lucid {
 
@@ -12,6 +13,18 @@ class Base extends Lucid {
     return _.pickBy(this.attributes, (value, key) => {
       return (typeof (this.original[key]) === 'undefined' || !_.isEqual(this.original[key], value)) && !key.startsWith('_pivot_')
     })
+  }
+
+  static boot () {
+    super.boot()
+
+    this.use('App/Model/Traits/Orderable')
+  }
+
+  static bootIfNotBooted () {
+    if (this.name !== 'Base') {
+      super.bootIfNotBooted()
+    }
   }
 
   static newInstance (attrs) {
@@ -37,6 +50,17 @@ class Base extends Lucid {
       name, // this name is used for grouping image's sizes
       name
     ].join('/')
+  }
+
+  getPublicUrl (path) {
+    return path ? StorageService.getHttpsUrl(path, false) : null
+  }
+
+  getSignedUrl (path, options) {
+    (typeof options === 'object') || (options = {})
+    options.Key = path
+
+    return StorageService.getSignedUrl('getObject', options)
   }
 
   getId (id) {
