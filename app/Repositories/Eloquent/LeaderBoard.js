@@ -22,7 +22,7 @@ class LeaderBoardRepository extends BaseRepository {
   }
 
   async addMember(quizid, user, score, start, end, timetaken) {
-    const userExists = this.findByOrFail('name', user)
+    const userExists = await this.findByOrFail('name', user)
     const userid = null
 
     if(!userExists) {
