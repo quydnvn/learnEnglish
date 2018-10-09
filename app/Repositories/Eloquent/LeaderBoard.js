@@ -19,6 +19,10 @@ class LeaderBoardRepository extends BaseRepository {
                               .where('quiz_users.quiz_id', quizid)
                               .orderBy('quiz_users.score', 'desc')
                               .fetch())
+    if(number) {
+
+    }
+    return members
   }
 
   async addMember(quizid, user, score, start, end, timetaken) {
