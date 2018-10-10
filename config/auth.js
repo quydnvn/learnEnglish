@@ -1,7 +1,6 @@
-'use strict'
+'use strict';
 
-/** @type {import('@adonisjs/framework/src/Env')} */
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -16,7 +15,7 @@ module.exports = {
   | Available Serializers - lucid, database
   |
   */
-  authenticator: 'session',
+  authenticator: 'jwt',
 
   /*
   |--------------------------------------------------------------------------
@@ -29,7 +28,7 @@ module.exports = {
   */
   session: {
     serializer: 'lucid',
-    model: 'App/Models/User',
+    model: 'App/Model/User',
     scheme: 'session',
     uid: 'email',
     password: 'password'
@@ -50,7 +49,7 @@ module.exports = {
   */
   basic: {
     serializer: 'lucid',
-    model: 'App/Models/User',
+    model: 'App/Model/User',
     scheme: 'basic',
     uid: 'email',
     password: 'password'
@@ -67,28 +66,12 @@ module.exports = {
   */
   jwt: {
     serializer: 'lucid',
-    model: 'App/Models/User',
+    model: 'App/Model/User',
     scheme: 'jwt',
     uid: 'email',
     password: 'password',
     options: {
       secret: Env.get('APP_KEY')
     }
-  },
-
-  /*
-  |--------------------------------------------------------------------------
-  | Api
-  |--------------------------------------------------------------------------
-  |
-  | The Api scheme makes use of API personal tokens to authenticate a user.
-  |
-  */
-  api: {
-    serializer: 'lucid',
-    model: 'App/Models/User',
-    scheme: 'api',
-    uid: 'email',
-    password: 'password'
   }
-}
+};
